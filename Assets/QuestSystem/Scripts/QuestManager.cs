@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class QuestManager : MonoBehaviour
 {
@@ -11,8 +10,8 @@ public class QuestManager : MonoBehaviour
     public GameObject mainQuestTrigger;
     public GameObject subQuestTrigger;
 
-    public TMP_Text questName;
-    public TMP_Text questSubName;
+    public Text questName;
+    public Text questSubName;
 
     private void Start()
     {
