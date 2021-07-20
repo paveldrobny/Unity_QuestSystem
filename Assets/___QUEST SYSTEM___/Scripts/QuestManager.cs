@@ -17,7 +17,6 @@ public class QuestManager : MonoBehaviour
     public Text[] questMainText;
     public Text questSubText;
 
-
     private void Start()
     {
         ResetQuestData();

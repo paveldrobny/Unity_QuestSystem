@@ -1,8 +1,9 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "QuestDataObject", menuName = "ScriptableObject/QuestData")]
+[CreateAssetMenu(fileName = "QuestDataObject",
+    menuName = "ScriptableObject/QuestData")]
 public class QuestData : ScriptableObject
 {
     public int currentQuestID = 0;
@@ -33,3 +34,11 @@ public class QuestSubTargets
     public Vector3 triggerPosition;
     public Quaternion triggerRotation;
 }
+
+
+
+
+
+
+
+
