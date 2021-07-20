@@ -1,4 +1,4 @@
-# Unity_QuestSystem
+# Unity QuestSystem
 
 ![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestData.png)
 <br/>
