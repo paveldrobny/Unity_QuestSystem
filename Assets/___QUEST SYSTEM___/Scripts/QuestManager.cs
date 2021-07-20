@@ -10,8 +10,13 @@ public class QuestManager : MonoBehaviour
     public GameObject mainQuestTrigger;
     public GameObject subQuestTrigger;
 
-    public Text questName;
-    public Text questSubName;
+    public GameObject ui_QuestInfo;
+    public GameObject ui_ConfirmQuest;
+    public GameObject ui_CompletedQuest;
+
+    public Text[] questMainText;
+    public Text questSubText;
+
 
     private void Start()
     {
@@ -29,20 +34,34 @@ public class QuestManager : MonoBehaviour
         return data.quests[GetQuestID()].currentSubTargetID;
     }
 
-    public void GetQuestName()
+    public string GetQuestName()
     {
-        questName.text = data.quests[data.currentQuestID].questName;
+        return data.quests[data.currentQuestID].questName;
     }
-    public void GetQuestSubName()
+    public string GetQuestSubName()
     {
         int currentSubTargetID = data.quests[data.currentQuestID].currentSubTargetID;
-        questSubName.text = data.quests[data.currentQuestID].subTargets[currentSubTargetID].questTargetName;
+        return data.quests[data.currentQuestID].subTargets[currentSubTargetID].questTargetName;
+    }
+
+    public bool IsQuestConfirm()
+    {
+        return data.quests[data.currentQuestID].isQuestConfirm;
+    }
+
+    public void GetQuestInfoData()
+    {
+        for(int i = 0; i < questMainText.Length; i++)
+        {
+            questMainText[i].text = GetQuestName();
+        }
+
+        questSubText.text = GetQuestSubName();
     }
 
     public void SetFirstQuest()
     {
-        GetQuestName();
-        GetQuestSubName();
+        GetQuestInfoData();
     }
 
     public void NextQuest()
@@ -52,8 +71,7 @@ public class QuestManager : MonoBehaviour
             data.currentQuestID++;
         }
 
-        GetQuestName();
-        GetQuestSubName();
+        GetQuestInfoData();
         SpawnMainTrigger();
     }
 
@@ -65,8 +83,39 @@ public class QuestManager : MonoBehaviour
         if (currentSubID < currentSubTargets)
             data.quests[data.currentQuestID].currentSubTargetID++;
 
-        GetQuestSubName();
+        GetQuestInfoData();
         SpawnSubTrigger();
+    }
+
+    public void QuestStart()
+    {
+        ui_ConfirmQuest.SetActive(false);
+        ui_QuestInfo.SetActive(true);
+    }
+
+    public void QuestEnd()
+    {
+        ui_ConfirmQuest.SetActive(false);
+        ui_QuestInfo.SetActive(false);
+        StartCoroutine(QuestCompleted());
+    }
+
+    IEnumerator QuestCompleted()
+    {
+        ui_CompletedQuest.SetActive(true);
+        yield return new WaitForSeconds(3);
+        ui_CompletedQuest.SetActive(false);
+    }
+
+    public void AcceptQuest()
+    {
+        data.quests[data.currentQuestID].isQuestConfirm = true;
+        QuestStart();
+    }
+
+    public void DeclineQuest()
+    {
+        QuestEnd();
     }
 
     public void SpawnMainTrigger()
@@ -86,12 +135,19 @@ public class QuestManager : MonoBehaviour
         Instantiate(subQuestTrigger, position, rotation);
     }
 
+
+    // Reset currentQuestID and currentSubTargetID on ScriptableObject in play mode start
     public void ResetQuestData()
     {
         data.currentQuestID = 0;
-        for (int i = 0; i < data.quests[GetQuestID()].subTargets.Length -1; i++)
+        for (int i = 0; i < data.quests[GetQuestID()].subTargets.Length - 1; i++)
         {
             data.quests[GetQuestID()].currentSubTargetID = 0;
+        }
+
+        for (int i = 0; i < data.quests.Length - 1; i++)
+        {
+            data.quests[GetQuestID()].isQuestConfirm = false;
         }
     }
 }

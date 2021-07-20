@@ -12,21 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fd04ec89ed0a964ab1060f84d35b3a5, type: 3}
   m_Name: QuestDataObject
   m_EditorClassIdentifier: 
-  currentQuestID: 0
+  currentQuestID: 1
   quests:
   - questName: Prologue
+    isQuestConfirm: 1
     triggerPosition: {x: 148.11423, y: 1.73, z: 144.70647}
     triggerRotation: {x: 0, y: 0, z: 0, w: 1}
-    currentSubTargetID: 0
+    currentSubTargetID: 1
     subTargets:
     - questTargetName: Go to point 1
-      triggerPosition: {x: 148.11423, y: 1.73, z: 114.7065}
+      triggerPosition: {x: 148.11423, y: 1.73, z: 134.7065}
+      triggerRotation: {x: 0, y: 0, z: 0, w: 0}
+    - questTargetName: Go to point 2
+      triggerPosition: {x: 155, y: 1.73, z: 155}
       triggerRotation: {x: 0, y: 0, z: 0, w: 0}
   - questName: Chapter 1
+    isQuestConfirm: 1
     triggerPosition: {x: 148.11423, y: 1.73, z: 144.70647}
     triggerRotation: {x: 0, y: 0, z: 0, w: 0}
     currentSubTargetID: 0
     subTargets:
-    - questTargetName: Chapter 2 Go To Point 1
+    - questTargetName: Chapter 1 Go To Point 1
       triggerPosition: {x: 148.11423, y: 1.73, z: 114.7065}
       triggerRotation: {x: 0, y: 0, z: 0, w: 0}

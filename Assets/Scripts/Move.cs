@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 public class Move : MonoBehaviour
 {
@@ -29,9 +30,12 @@ public class Move : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (Physics.Raycast(ray, out hit, 100))
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                navMeshAgent.destination = hit.point;
+                if (Physics.Raycast(ray, out hit, 100))
+                {
+                    navMeshAgent.destination = hit.point;
+                }
             }
         }
     }

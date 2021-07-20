@@ -13,9 +13,18 @@ public class QuestTriggerMain : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        questManager.SpawnSubTrigger();
-        questManager.GetQuestName();
-        questManager.GetQuestSubName();
-        Destroy(this.gameObject);
+        questManager.GetQuestInfoData();
+        questManager.ui_ConfirmQuest.SetActive(true);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (questManager.IsQuestConfirm())
+        {
+            questManager.SpawnSubTrigger();
+            questManager.GetQuestInfoData();
+            questManager.QuestStart();
+            Destroy(this.gameObject);
+        }
     }
 }

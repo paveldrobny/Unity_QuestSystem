@@ -20,9 +20,9 @@ public class QuestTriggerSub : MonoBehaviour
         if (questManager.GetQuestSubID() == data.quests[data.currentQuestID].subTargets.Length - 1)
         {
             questManager.NextQuest();
+            questManager.QuestEnd();
             return;
         }
         questManager.NextQuestSub();
     }
-
 }

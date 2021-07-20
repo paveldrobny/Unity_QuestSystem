@@ -14,6 +14,8 @@ public class Quests
 {
     public string questName;
 
+    public bool isQuestConfirm = false;
+
     // Spawn main trigger location
     public Vector3 triggerPosition;
     public Quaternion triggerRotation;
