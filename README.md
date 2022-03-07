@@ -4,7 +4,7 @@
 ## 07.03.2022
 
 - Added
-  - Quests Journal
+  - Quests journal
 
 ![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestsJournal.png)
 <br/>
