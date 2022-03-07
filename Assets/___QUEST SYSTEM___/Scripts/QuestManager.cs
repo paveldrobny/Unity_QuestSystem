@@ -13,6 +13,8 @@ public class QuestManager : MonoBehaviour
     public GameObject ui_QuestInfo;
     public GameObject ui_ConfirmQuest;
     public GameObject ui_CompletedQuest;
+    public GameObject ui_QuestsJournal;
+    public GameObject ui_JournalItem;
 
     public Text[] questMainText;
     public Text questSubText;
@@ -21,6 +23,7 @@ public class QuestManager : MonoBehaviour
     {
         ResetQuestData();
         SpawnMainTrigger();
+        AddToJounal();
     }
 
     public int GetQuestID()
@@ -65,13 +68,15 @@ public class QuestManager : MonoBehaviour
 
     public void NextQuest()
     {
+        GetQuestInfoData();
+        SpawnMainTrigger();
+
         if (data.currentQuestID < data.quests.Length - 1)
         {
             data.currentQuestID++;
-        }
 
-        GetQuestInfoData();
-        SpawnMainTrigger();
+            AddToJounal();
+        }
     }
 
     public void NextQuestSub()
@@ -92,17 +97,31 @@ public class QuestManager : MonoBehaviour
         ui_QuestInfo.SetActive(true);
     }
 
-    public void QuestEnd()
+    public void QuestEnd(bool isDecline = false)
     {
         ui_ConfirmQuest.SetActive(false);
         ui_QuestInfo.SetActive(false);
-        StartCoroutine(QuestCompleted());
+
+        if (!isDecline)
+        {
+            StartCoroutine(QuestCompleted());
+        }
+
+        // Set complete previous quests
+        GameObject journalContent = GameObject.Find("JournalContent");
+
+        for (int i = 0; i < journalContent.transform.childCount; i++)
+        {
+            journalContent.transform.GetChild(i).GetComponent<QuestItem>().SetCompleted();
+        }
     }
 
     IEnumerator QuestCompleted()
     {
         ui_CompletedQuest.SetActive(true);
+
         yield return new WaitForSeconds(3);
+
         ui_CompletedQuest.SetActive(false);
     }
 
@@ -114,7 +133,7 @@ public class QuestManager : MonoBehaviour
 
     public void DeclineQuest()
     {
-        QuestEnd();
+        QuestEnd(true);
     }
 
     public void SpawnMainTrigger()
@@ -144,9 +163,18 @@ public class QuestManager : MonoBehaviour
             data.quests[GetQuestID()].currentSubTargetID = 0;
         }
 
-        for (int i = 0; i < data.quests.Length - 1; i++)
+        for (int i = 0; i < data.quests.Length; i++)
         {
-            data.quests[GetQuestID()].isQuestConfirm = false;
+            data.quests[i].isQuestConfirm = false;
         }
+    }
+
+    void AddToJounal()
+    {
+        GameObject obj = Instantiate(ui_JournalItem, new Vector3(0, 0, 0), Quaternion.identity);
+
+        obj.transform.localScale = new Vector3(1, 1, 1);
+        obj.transform.SetParent(GameObject.Find("JournalContent").transform, false);
+        obj.GetComponent<QuestItem>().title.text = GetQuestName();
     }
 }

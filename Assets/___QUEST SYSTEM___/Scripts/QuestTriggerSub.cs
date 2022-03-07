@@ -17,12 +17,23 @@ public class QuestTriggerSub : MonoBehaviour
 
         Destroy(this.gameObject);
 
+        bool isQuestsOver = questManager.GetQuestID() == data.quests.Length - 1;
+
         if (questManager.GetQuestSubID() == data.quests[data.currentQuestID].subTargets.Length - 1)
         {
-            questManager.NextQuest();
             questManager.QuestEnd();
+
+            if (!isQuestsOver)
+            {
+                questManager.NextQuest();
+            }
+
             return;
         }
-        questManager.NextQuestSub();
+
+        if (!isQuestsOver)
+        {
+            questManager.NextQuestSub();
+        }
     }
 }

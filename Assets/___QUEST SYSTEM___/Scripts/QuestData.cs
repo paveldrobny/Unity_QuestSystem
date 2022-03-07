@@ -34,11 +34,3 @@ public class QuestSubTargets
     public Vector3 triggerPosition;
     public Quaternion triggerRotation;
 }
-
-
-
-
-
-
-
-
