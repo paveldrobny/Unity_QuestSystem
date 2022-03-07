@@ -6,6 +6,7 @@
 - Added
   - Quests Journal
 
+<br/>
 ![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestsJournal.png)
 <br/>
 
