@@ -1,11 +1,5 @@
 # Unity QuestSystem
 
-### Release notes:
-
-## 07.03.2022
-
-- Added
-  - Quest journal
   
 ![img](https://firebasestorage.googleapis.com/v0/b/personal-24c21.appspot.com/o/Projects%2FUnityQuestSystem.png?alt=media&token=ebc61b18-9d36-4681-bc2e-6de39ea9161f)
 <br/>
