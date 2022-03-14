@@ -26,6 +26,14 @@ public class QuestManager : MonoBehaviour
         AddToJounal();
     }
 
+    private void Update()
+    {
+        Debug.Log("QName: " + GetQuestName());
+        Debug.Log("QID: " + GetQuestID());
+        Debug.Log("QSubName: " + GetQuestSubName());
+        Debug.Log("QSubID: " + GetQuestSubID());
+    }
+
     public int GetQuestID()
     {
         return data.currentQuestID;
@@ -33,22 +41,23 @@ public class QuestManager : MonoBehaviour
 
     public int GetQuestSubID()
     {
-        return data.quests[GetQuestID()].currentSubTargetID;
+        return data.questItems[GetQuestID()].currentSubTargetID;
     }
 
     public string GetQuestName()
     {
-        return data.quests[data.currentQuestID].questName;
+        return data.questItems[data.currentQuestID].questName;
     }
     public string GetQuestSubName()
     {
-        int currentSubTargetID = data.quests[data.currentQuestID].currentSubTargetID;
-        return data.quests[data.currentQuestID].subTargets[currentSubTargetID].questTargetName;
+        int currentSubTargetID = data.questItems[data.currentQuestID].currentSubTargetID;
+        Debug.Log(data.questItems[data.currentQuestID].subTargets[currentSubTargetID].targetName);
+        return data.questItems[data.currentQuestID].subTargets[currentSubTargetID].targetName;
     }
 
     public bool IsQuestConfirm()
     {
-        return data.quests[data.currentQuestID].isQuestConfirm;
+        return data.questItems[data.currentQuestID].isQuestConfirm;
     }
 
     public void GetQuestInfoData()
@@ -71,7 +80,7 @@ public class QuestManager : MonoBehaviour
         GetQuestInfoData();
         SpawnMainTrigger();
 
-        if (data.currentQuestID < data.quests.Length - 1)
+        if (data.currentQuestID < data.questItems.Length - 1)
         {
             data.currentQuestID++;
 
@@ -81,11 +90,11 @@ public class QuestManager : MonoBehaviour
 
     public void NextQuestSub()
     {
-        int currentSubID = data.quests[data.currentQuestID].currentSubTargetID,
-            currentSubTargets = data.quests[data.currentQuestID].subTargets.Length - 1;
+        int currentSubID = data.questItems[data.currentQuestID].currentSubTargetID;
+        int currentSubTargets = data.questItems[data.currentQuestID].subTargets.Length ;
 
         if (currentSubID < currentSubTargets)
-            data.quests[data.currentQuestID].currentSubTargetID++;
+            data.questItems[data.currentQuestID].currentSubTargetID++;
 
         GetQuestInfoData();
         SpawnSubTrigger();
@@ -112,7 +121,7 @@ public class QuestManager : MonoBehaviour
 
         for (int i = 0; i < journalContent.transform.childCount; i++)
         {
-            journalContent.transform.GetChild(i).GetComponent<QuestItem>().SetCompleted();
+            journalContent.transform.GetChild(i).GetComponent<JournalItem>().SetCompleted();
         }
     }
 
@@ -120,14 +129,15 @@ public class QuestManager : MonoBehaviour
     {
         ui_CompletedQuest.SetActive(true);
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
 
         ui_CompletedQuest.SetActive(false);
     }
 
     public void AcceptQuest()
     {
-        data.quests[data.currentQuestID].isQuestConfirm = true;
+        data.questItems[data.currentQuestID].isQuestConfirm = true;
+        data.questItems[data.currentQuestID].currentSubTargetID = 0;
         QuestStart();
     }
 
@@ -138,17 +148,17 @@ public class QuestManager : MonoBehaviour
 
     public void SpawnMainTrigger()
     {
-        Vector3 position = data.quests[data.currentQuestID].triggerPosition;
-        Quaternion rotation = data.quests[data.currentQuestID].triggerRotation;
+        Vector3 position = data.questItems[data.currentQuestID].triggerPosition;
+        Quaternion rotation = data.questItems[data.currentQuestID].triggerRotation;
 
         Instantiate(mainQuestTrigger, position, rotation);
     }
 
     public void SpawnSubTrigger()
     {
-        int currentSubID = data.quests[data.currentQuestID].currentSubTargetID;
-        Vector3 position = data.quests[data.currentQuestID].subTargets[currentSubID].triggerPosition;
-        Quaternion rotation = data.quests[data.currentQuestID].subTargets[currentSubID].triggerRotation;
+        int currentSubID = data.questItems[data.currentQuestID].currentSubTargetID;
+        Vector3 position = data.questItems[data.currentQuestID].subTargets[currentSubID].triggerPosition;
+        Quaternion rotation = data.questItems[data.currentQuestID].subTargets[currentSubID].triggerRotation;
 
         Instantiate(subQuestTrigger, position, rotation);
     }
@@ -158,14 +168,14 @@ public class QuestManager : MonoBehaviour
     public void ResetQuestData()
     {
         data.currentQuestID = 0;
-        for (int i = 0; i < data.quests[GetQuestID()].subTargets.Length - 1; i++)
+        for (int i = 0; i < data.questItems[GetQuestID()].subTargets.Length - 1; i++)
         {
-            data.quests[GetQuestID()].currentSubTargetID = 0;
+            data.questItems[GetQuestID()].currentSubTargetID = 0;
         }
 
-        for (int i = 0; i < data.quests.Length; i++)
+        for (int i = 0; i < data.questItems.Length; i++)
         {
-            data.quests[i].isQuestConfirm = false;
+            data.questItems[i].isQuestConfirm = false;
         }
     }
 
@@ -175,6 +185,6 @@ public class QuestManager : MonoBehaviour
 
         obj.transform.localScale = new Vector3(1, 1, 1);
         obj.transform.SetParent(GameObject.Find("JournalContent").transform, false);
-        obj.GetComponent<QuestItem>().title.text = GetQuestName();
+        obj.GetComponent<JournalItem>().title.text = GetQuestName();
     }
 }

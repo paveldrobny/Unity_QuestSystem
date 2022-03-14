@@ -1,15 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class QuestItem : MonoBehaviour
+[CreateAssetMenu(fileName = "QuestDataObject",
+    menuName = "ScriptableObject/QuestItem")]
+public class QuestItem : ScriptableObject
 {
-    public Text title;
-    public GameObject background;
+    public string questName;
+    public bool isQuestConfirm = false;
 
-    public void SetCompleted()
-    {
-        background.GetComponent<Image>().color = new Color(0.03f, 0.7f, 0.0f, 1.0f);
-    }
+    // Spawn main trigger location
+    public Vector3 triggerPosition;
+    public Quaternion triggerRotation;
+
+    public int currentSubTargetID = 0;
+    public QuestSubTargets[] subTargets;
+}
+
+[System.Serializable]
+public class QuestSubTargets
+{
+    public string targetName;
+
+    // Spawn sub trigger location
+    public Vector3 triggerPosition;
+    public Quaternion triggerRotation;
 }

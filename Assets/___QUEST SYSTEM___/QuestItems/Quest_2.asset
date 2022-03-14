@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7975306f21dc4ce42852eccc0f7f293a, type: 3}
+  m_Name: Quest_2
+  m_EditorClassIdentifier: 
+  questName: Chapter 1
+  isQuestConfirm: 1
+  triggerPosition: {x: 148, y: 2, z: 160}
+  triggerRotation: {x: 0, y: 0, z: 0, w: 0}
+  currentSubTargetID: 2
+  subTargets:
+  - targetName: Go to point 1
+    triggerPosition: {x: 148, y: 2, z: 150}
+    triggerRotation: {x: 0, y: 0, z: 0, w: 0}
+  - targetName: Go to point 2
+    triggerPosition: {x: 148, y: 2, z: 130}
+    triggerRotation: {x: 0, y: 0, z: 0, w: 0}
+  - targetName: Go to point 3
+    triggerPosition: {x: 148, y: 2, z: 160}
+    triggerRotation: {x: 0, y: 0, z: 0, w: 0}
