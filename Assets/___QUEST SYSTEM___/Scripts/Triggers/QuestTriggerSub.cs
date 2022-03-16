@@ -31,9 +31,6 @@ public class QuestTriggerSub : MonoBehaviour
             return;
         }
 
-       // if (!isAllQuestsOver)
-       // {
-            questManager.NextQuestSub();
-       // }
+        questManager.NextQuestSub();
     }
 }

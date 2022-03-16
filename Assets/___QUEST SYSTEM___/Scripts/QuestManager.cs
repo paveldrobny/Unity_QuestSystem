@@ -23,15 +23,11 @@ public class QuestManager : MonoBehaviour
     {
         ResetQuestData();
         SpawnMainTrigger();
-        AddToJounal();
+        AddToJournal();
     }
 
     private void Update()
     {
-        Debug.Log("QName: " + GetQuestName());
-        Debug.Log("QID: " + GetQuestID());
-        Debug.Log("QSubName: " + GetQuestSubName());
-        Debug.Log("QSubID: " + GetQuestSubID());
     }
 
     public int GetQuestID()
@@ -84,7 +80,7 @@ public class QuestManager : MonoBehaviour
         {
             data.currentQuestID++;
 
-            AddToJounal();
+            AddToJournal();
         }
     }
 
@@ -179,7 +175,7 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    void AddToJounal()
+    void AddToJournal()
     {
         GameObject obj = Instantiate(ui_JournalItem, new Vector3(0, 0, 0), Quaternion.identity);
 
