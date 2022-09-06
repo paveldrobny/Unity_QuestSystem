@@ -5,26 +5,37 @@ using UnityEngine;
 public class QuestTriggerMain : MonoBehaviour
 {
     QuestManager questManager;
+    public Canvas canvas;
 
     public void Start()
     {
         questManager = FindObjectOfType<QuestManager>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Update()
     {
-        questManager.GetQuestInfoData();
-        questManager.ui_ConfirmQuest.SetActive(true);
+        canvas.transform.LookAt(questManager.playerCamera.transform);
     }
 
     private void OnTriggerStay(Collider other)
     {
+        questManager.ui_QuestConfirm.SetActive(true);
+        questManager.SetCursor(true);
+        questManager.GetQuestInfoData();
+
         if (questManager.IsQuestConfirm())
         {
-            questManager.SpawnSubTrigger();
+            questManager.SetCursor();
             questManager.GetQuestInfoData();
             questManager.QuestStart();
-            Destroy(this.gameObject);
+            questManager.SpawnObjectiveTrigger();
+            Destroy(gameObject);
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        questManager.ui_QuestConfirm.SetActive(false);
+        questManager.SetCursor(false);
     }
 }

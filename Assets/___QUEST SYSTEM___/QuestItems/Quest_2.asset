@@ -12,18 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7975306f21dc4ce42852eccc0f7f293a, type: 3}
   m_Name: Quest_2
   m_EditorClassIdentifier: 
-  questName: Chapter 1
-  isQuestConfirm: 1
-  triggerPosition: {x: 148, y: 2, z: 160}
+  questName: Mission 1
+  isQuestConfirm: 0
+  triggerPosition: {x: 9.02, y: 1.5, z: 20.87}
   triggerRotation: {x: 0, y: 0, z: 0, w: 0}
-  currentSubTargetID: 2
-  subTargets:
-  - targetName: Go to point 1
-    triggerPosition: {x: 148, y: 2, z: 150}
-    triggerRotation: {x: 0, y: 0, z: 0, w: 0}
-  - targetName: Go to point 2
-    triggerPosition: {x: 148, y: 2, z: 130}
-    triggerRotation: {x: 0, y: 0, z: 0, w: 0}
-  - targetName: Go to point 3
-    triggerPosition: {x: 148, y: 2, z: 160}
-    triggerRotation: {x: 0, y: 0, z: 0, w: 0}
+  currentObjectivesID: 0
+  objectives:
+  - name: Go up the stairs. (The indicator on the bottom right shows how high the
+      object is from you)
+    typeObjective: 0
+    spawnObjective: {fileID: 1444139761213569477, guid: aecb9c17ab84fad4caba03c49237b524, type: 3}
+    triggerPosition: {x: 2.203, y: 5.505188, z: 14.943}
+    triggerRotation: {x: 0, y: -0.72138363, z: 0, w: 0.69253564}
+  - name: Destroy red cube (pass through to deal damage)
+    typeObjective: 1
+    spawnObjective: {fileID: 8385617801350435908, guid: dcca36b4725e8244da6b7b51bd768dc1, type: 3}
+    triggerPosition: {x: -1.46, y: 5.22, z: 14.87}
+    triggerRotation: {x: 0, y: 0.6866409, z: 0, w: 0.7269968}
+  - name: Go to final point.
+    typeObjective: 0
+    spawnObjective: {fileID: 1444139761213569477, guid: aecb9c17ab84fad4caba03c49237b524, type: 3}
+    triggerPosition: {x: 6.33, y: 1.5000002, z: 7.78}
+    triggerRotation: {x: 0, y: 0, z: 0, w: 1}

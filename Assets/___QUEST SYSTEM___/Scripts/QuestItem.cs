@@ -9,20 +9,28 @@ public class QuestItem : ScriptableObject
     public string questName;
     public bool isQuestConfirm = false;
 
-    // Spawn main trigger location
+    // Spawn start quest trigger location
     public Vector3 triggerPosition;
     public Quaternion triggerRotation;
 
-    public int currentSubTargetID = 0;
-    public QuestSubTargets[] subTargets;
+    public int currentObjectivesID = 0;
+    public QuestObjective[] objectives;
 }
 
 [System.Serializable]
-public class QuestSubTargets
-{
-    public string targetName;
+public enum TypeObjective { Location, Destroy};
 
-    // Spawn sub trigger location
+[System.Serializable]
+public class QuestObjective
+{
+    public string name;
+
+    [Tooltip("TypeObjective: So far, it's useless")]
+    public TypeObjective typeObjective; //so far, it's useless
+
+    public GameObject spawnObjective;
+
+    // Spawn objective location
     public Vector3 triggerPosition;
     public Quaternion triggerRotation;
 }

@@ -8,26 +8,41 @@ public class QuestManager : MonoBehaviour
     public QuestData data;
 
     public GameObject mainQuestTrigger;
-    public GameObject subQuestTrigger;
 
+    [Header("UI Prefab")]
     public GameObject ui_QuestInfo;
-    public GameObject ui_ConfirmQuest;
-    public GameObject ui_CompletedQuest;
-    public GameObject ui_QuestsJournal;
-    public GameObject ui_JournalItem;
+    public GameObject ui_QuestCompleted;
+    public GameObject ui_QuestConfirm;
+    public GameObject ui_QuestNavigate;
 
-    public Text[] questMainText;
-    public Text questSubText;
+    [Header("UI Text")]
+    public Text[] questTitleText;
+    public Text questObjectiveText;
+    public Text metersToObjectiveText;
+    public Text HeightObjectiveText;
+
+    [Header("Player")]
+    public GameObject player;
+    public GameObject playerCamera;
 
     private void Start()
     {
         ResetQuestData();
-        SpawnMainTrigger();
-        AddToJournal();
+        SpawnStartQuestTrigger();
+
+        ui_QuestInfo.SetActive(false);
+        ui_QuestCompleted.SetActive(false);
+        ui_QuestConfirm.SetActive(false);
+        ui_QuestNavigate.SetActive(false);
     }
 
-    private void Update()
+    public void Update()
     {
+        if(IsQuestConfirm())
+        {
+            metersToObjectiveText.text = GetDistanceToObjective().ToString() + " (m)";
+            GetHeightObjective();
+        }
     }
 
     public int GetQuestID()
@@ -37,7 +52,7 @@ public class QuestManager : MonoBehaviour
 
     public int GetQuestSubID()
     {
-        return data.questItems[GetQuestID()].currentSubTargetID;
+        return data.questItems[GetQuestID()].currentObjectivesID;
     }
 
     public string GetQuestName()
@@ -46,9 +61,8 @@ public class QuestManager : MonoBehaviour
     }
     public string GetQuestSubName()
     {
-        int currentSubTargetID = data.questItems[data.currentQuestID].currentSubTargetID;
-        Debug.Log(data.questItems[data.currentQuestID].subTargets[currentSubTargetID].targetName);
-        return data.questItems[data.currentQuestID].subTargets[currentSubTargetID].targetName;
+        int currentSubTargetID = data.questItems[data.currentQuestID].currentObjectivesID;
+        return data.questItems[data.currentQuestID].objectives[currentSubTargetID].name;
     }
 
     public bool IsQuestConfirm()
@@ -58,12 +72,12 @@ public class QuestManager : MonoBehaviour
 
     public void GetQuestInfoData()
     {
-        for(int i = 0; i < questMainText.Length; i++)
+        for (int i = 0; i < questTitleText.Length; i++)
         {
-            questMainText[i].text = GetQuestName();
+            questTitleText[i].text = GetQuestName();
         }
 
-        questSubText.text = GetQuestSubName();
+        questObjectiveText.text = GetQuestSubName();
     }
 
     public void SetFirstQuest()
@@ -74,67 +88,59 @@ public class QuestManager : MonoBehaviour
     public void NextQuest()
     {
         GetQuestInfoData();
-        SpawnMainTrigger();
 
         if (data.currentQuestID < data.questItems.Length - 1)
         {
             data.currentQuestID++;
-
-            AddToJournal();
         }
+
+        SpawnStartQuestTrigger();
     }
 
     public void NextQuestSub()
     {
-        int currentSubID = data.questItems[data.currentQuestID].currentSubTargetID;
-        int currentSubTargets = data.questItems[data.currentQuestID].subTargets.Length ;
+        int currentSubID = data.questItems[data.currentQuestID].currentObjectivesID;
+        int currentobjectives = data.questItems[data.currentQuestID].objectives.Length ;
 
-        if (currentSubID < currentSubTargets)
-            data.questItems[data.currentQuestID].currentSubTargetID++;
+        if (currentSubID < currentobjectives)
+            data.questItems[data.currentQuestID].currentObjectivesID++;
 
         GetQuestInfoData();
-        SpawnSubTrigger();
+        SpawnObjectiveTrigger();
     }
 
     public void QuestStart()
     {
-        ui_ConfirmQuest.SetActive(false);
+        ui_QuestConfirm.SetActive(false);
         ui_QuestInfo.SetActive(true);
+        ui_QuestNavigate.SetActive(true);
     }
 
     public void QuestEnd(bool isDecline = false)
     {
-        ui_ConfirmQuest.SetActive(false);
+        ui_QuestConfirm.SetActive(false);
         ui_QuestInfo.SetActive(false);
+        ui_QuestNavigate.SetActive(false);
 
         if (!isDecline)
         {
             StartCoroutine(QuestCompleted());
         }
-
-        // Set complete previous quests
-        GameObject journalContent = GameObject.Find("JournalContent");
-
-        for (int i = 0; i < journalContent.transform.childCount; i++)
-        {
-            journalContent.transform.GetChild(i).GetComponent<JournalItem>().SetCompleted();
-        }
     }
 
     IEnumerator QuestCompleted()
     {
-        ui_CompletedQuest.SetActive(true);
+         ui_QuestCompleted.SetActive(true);
 
         yield return new WaitForSeconds(2);
 
-        ui_CompletedQuest.SetActive(false);
+        ui_QuestCompleted.SetActive(false);
     }
 
     public void AcceptQuest()
     {
         data.questItems[data.currentQuestID].isQuestConfirm = true;
-        data.questItems[data.currentQuestID].currentSubTargetID = 0;
-        QuestStart();
+        data.questItems[data.currentQuestID].currentObjectivesID = 0;
     }
 
     public void DeclineQuest()
@@ -142,7 +148,7 @@ public class QuestManager : MonoBehaviour
         QuestEnd(true);
     }
 
-    public void SpawnMainTrigger()
+    public void SpawnStartQuestTrigger()
     {
         Vector3 position = data.questItems[data.currentQuestID].triggerPosition;
         Quaternion rotation = data.questItems[data.currentQuestID].triggerRotation;
@@ -150,23 +156,25 @@ public class QuestManager : MonoBehaviour
         Instantiate(mainQuestTrigger, position, rotation);
     }
 
-    public void SpawnSubTrigger()
+    public void SpawnObjectiveTrigger()
     {
-        int currentSubID = data.questItems[data.currentQuestID].currentSubTargetID;
-        Vector3 position = data.questItems[data.currentQuestID].subTargets[currentSubID].triggerPosition;
-        Quaternion rotation = data.questItems[data.currentQuestID].subTargets[currentSubID].triggerRotation;
+        int objectiveID = data.questItems[data.currentQuestID].currentObjectivesID;
+        Vector3 position = data.questItems[data.currentQuestID].objectives[objectiveID].triggerPosition;
+        Quaternion rotation = data.questItems[data.currentQuestID].objectives[objectiveID].triggerRotation;
 
-        Instantiate(subQuestTrigger, position, rotation);
+        GameObject spawnObjective = data.questItems[data.currentQuestID].objectives[objectiveID].spawnObjective;
+
+        Instantiate(spawnObjective, position, rotation);
     }
 
 
-    // Reset currentQuestID and currentSubTargetID on ScriptableObject in play mode start
+    // Reset currentQuestID, currentObjectivesID and isQuestConfirm on ScriptableObject in play mode start
     public void ResetQuestData()
     {
         data.currentQuestID = 0;
-        for (int i = 0; i < data.questItems[GetQuestID()].subTargets.Length - 1; i++)
+        for (int i = 0; i < data.questItems[GetQuestID()].objectives.Length - 1; i++)
         {
-            data.questItems[GetQuestID()].currentSubTargetID = 0;
+            data.questItems[GetQuestID()].currentObjectivesID = 0;
         }
 
         for (int i = 0; i < data.questItems.Length; i++)
@@ -175,12 +183,43 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    void AddToJournal()
+    public void SetCursor(bool isShow = false)
     {
-        GameObject obj = Instantiate(ui_JournalItem, new Vector3(0, 0, 0), Quaternion.identity);
+        if(isShow)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            return;
+        }
 
-        obj.transform.localScale = new Vector3(1, 1, 1);
-        obj.transform.SetParent(GameObject.Find("JournalContent").transform, false);
-        obj.GetComponent<JournalItem>().title.text = GetQuestName();
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public int GetDistanceToObjective()
+    {
+        int objectiveID = data.questItems[data.currentQuestID].currentObjectivesID;
+        Vector3 objectivePosition = data.questItems[data.currentQuestID].objectives[objectiveID].triggerPosition;
+
+        return ((int)(player.transform.position - objectivePosition).magnitude);
+    }
+
+    public void GetHeightObjective()
+    {
+        int objectiveID = data.questItems[data.currentQuestID].currentObjectivesID;
+        Vector3 objectivePosition = data.questItems[data.currentQuestID].objectives[objectiveID].triggerPosition;
+
+        if(objectivePosition.y >= player.transform.position.y + 2)
+        {
+            HeightObjectiveText.text = "Objective is higher";
+        }
+        else if (objectivePosition.y + 2 <= player.transform.position.y)
+        {
+            HeightObjectiveText.text = "Objective is below";
+        }
+        else
+        {
+            HeightObjectiveText.text = "Objective is at the same height";
+        }
     }
 }
