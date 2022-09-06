@@ -1,10 +1,5 @@
 # Quest System
-### Unity version: 2020.3.36f1
-
-## 07.03.2022
-
-- Added
-  - Quests journal
+### Unity version: 2020.3.38f1
 
 ![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestsJournal.png)
 <br/>
