@@ -1,13 +1,13 @@
 # Quest System
 ### Unity version: 2020.3.38f1
 
-![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestsJournal.png)
+![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestSystem.png?raw=true)
 <br/>
 
-![img](https://raw.githubusercontent.com/paveldrobny/paveldrobny.github.io/master/src/images/UnityQuestSystem.png)
+![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestSystem1.png?raw=true)
 <br/>
 
-![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/ConfirmQuest.png)
+![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestSystem2.png?raw=true)
 <br/>
 
-![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/CompletedQuest.png)
+![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestSystem3.png?raw=true)
