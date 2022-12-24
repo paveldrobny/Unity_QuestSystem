@@ -5,6 +5,8 @@
   - Level system & Getting experience for completing quests
   - Available quests count
   - GameSystem for spawn Quests UI and Quest manager
+- Fixed
+  - Various minor errors
 
 ### Replace UI methods, for example: 
 
