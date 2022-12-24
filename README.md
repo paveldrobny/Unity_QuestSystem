@@ -6,15 +6,15 @@
   - Available quests count
   - GameSystem for spawn Quests UI and Quest manager
 
-#### Replace UI methods, for example: 
+### Replace UI methods, for example: 
 
-Before:
+#### Before:
 ```C#
-    ui_ConfirmQuest.setActive(true)
+    ui_ConfirmQuest.setActive(true);
 ```  
-After:
+#### After:
 ```C#
-    QuestConfirmUI.Instance.Show()
+    QuestConfirmUI.Instance.Show();
 ```
 
 Demo level path: "Assets/StarterAssets/ThirdPersonController/Scenes/Playground"
