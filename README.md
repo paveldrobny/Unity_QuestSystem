@@ -1,5 +1,12 @@
-# Quest System v2
-### Unity version: 2020.3.38f1
+# Quest System v2.1
+### Unity version: 2022
+
+- Added
+  - Level & Getting experience for completing quests
+  - Available quests count
+  - GameSystem for spawn Quests UI and Quest manager
+- Change
+  - Replace UI methods, for example, from: ui_ConfirmQuest.setActive(true) to: QuestConfirmUI.Instance.Show()
 
 Demo level path: "Assets/StarterAssets/ThirdPersonController/Scenes/Playground"
 
