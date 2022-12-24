@@ -4,40 +4,37 @@ using UnityEngine;
 
 public class TypeLocation : MonoBehaviour
 {
-    QuestManager questManager;
     public Canvas canvas;
-
-    public void Start()
-    {
-        questManager = FindObjectOfType<QuestManager>();
-    }
 
     public void Update()
     {
-        canvas.transform.LookAt(questManager.playerCamera.transform);
+        canvas.transform.LookAt(GameSystem.Instance.playerCamera.transform);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        QuestData data = questManager.data;
+        QuestData data = QuestManager.Instance.data;
 
         Destroy(gameObject);
 
-        bool isAllQuestsOver = questManager.GetQuestID() == data.questItems.Length - 1;
+        bool isAllQuestsOver = QuestManager.Instance.GetQuestID() == data.questItems.Length - 1;
 
-        if (questManager.GetQuestSubID() == data.questItems[data.currentQuestID].objectives.Length - 1)
+        if (QuestManager.Instance.GetQuestSubID() == data.questItems[data.currentQuestID].objectives.Length - 1)
         {
-            questManager.QuestEnd();
+            QuestManager.Instance.QuestEnd();
 
             if (!isAllQuestsOver)
             {
-                questManager.NextQuest();
+                QuestManager.Instance.NextQuest();
             }
-
+            else
+            {
+                QuestAvailableUI.Instance.UpdateQuestsNum("all completed");
+            }
         }
         else
         {
-            questManager.NextQuestSub();
+            QuestManager.Instance.NextQuestSub();
         }
     }
 }

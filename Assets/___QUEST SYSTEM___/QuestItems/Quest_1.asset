@@ -17,14 +17,15 @@ MonoBehaviour:
   triggerPosition: {x: -2.4307156, y: 1.5, z: 5.9156823}
   triggerRotation: {x: 0, y: 0, z: 0, w: 0}
   currentObjectivesID: 0
+  xp: 1100
   objectives:
   - name: Destroy red cube (pass through to deal damage)
-    typeObjective: 1
     spawnObjective: {fileID: 8385617801350435908, guid: dcca36b4725e8244da6b7b51bd768dc1, type: 3}
     triggerPosition: {x: -7.8763375, y: 1.5, z: 19}
     triggerRotation: {x: 0, y: 0, z: 0, w: 0}
+    triggerScale: {x: 1, y: 1, z: 1}
   - name: Good job! Go to green cube.
-    typeObjective: 0
     spawnObjective: {fileID: 1444139761213569477, guid: aecb9c17ab84fad4caba03c49237b524, type: 3}
     triggerPosition: {x: -0.56, y: 1, z: 22.1}
     triggerRotation: {x: 0, y: 0.5809962, z: 0, w: 0.8139063}
+    triggerScale: {x: 7, y: 3, z: 2}

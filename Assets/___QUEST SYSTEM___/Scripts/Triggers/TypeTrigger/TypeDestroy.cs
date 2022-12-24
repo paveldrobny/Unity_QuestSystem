@@ -5,20 +5,18 @@ using UnityEngine.UI;
 
 public class TypeDestroy : MonoBehaviour
 {
-    QuestManager questManager;
     public float health = 100.0f;
     public Canvas canvas;
     public Slider slider = null;
 
     public void Start()
     {
-        questManager = FindObjectOfType<QuestManager>();
         GetSliderValue();
     }
 
     public void Update()
     {
-        canvas.transform.LookAt(questManager.playerCamera.transform);
+        canvas.transform.LookAt(GameSystem.Instance.playerCamera.transform);
     }
 
     public void GetSliderValue()
@@ -34,7 +32,7 @@ public class TypeDestroy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        QuestData data = questManager.data;
+        QuestData data = QuestManager.Instance.data;
 
         Damage(55.0f);
 
@@ -42,21 +40,21 @@ public class TypeDestroy : MonoBehaviour
         {
             Destroy(gameObject);
 
-            bool isAllQuestsOver = questManager.GetQuestID() == data.questItems.Length - 1;
+            bool isAllQuestsOver = QuestManager.Instance.GetQuestID() == data.questItems.Length - 1;
 
-            if (questManager.GetQuestSubID() == data.questItems[data.currentQuestID].objectives.Length - 1)
+            if (QuestManager.Instance.GetQuestSubID() == data.questItems[data.currentQuestID].objectives.Length - 1)
             {
-                questManager.QuestEnd();
+                QuestManager.Instance.QuestEnd();
 
                 if (!isAllQuestsOver)
                 {
-                    questManager.NextQuest();
+                    QuestManager.Instance.NextQuest();
                 }
 
                 return;
             }
 
-            questManager.NextQuestSub();
+            QuestManager.Instance.NextQuestSub();
         }
     }
 }
