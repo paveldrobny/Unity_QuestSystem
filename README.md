@@ -8,11 +8,11 @@
 
 #### Replace UI methods, for example: 
 
-from:
+Before:
 ```C#
     ui_ConfirmQuest.setActive(true)
 ```  
-to:
+After:
 ```C#
     QuestConfirmUI.Instance.Show()
 ```
