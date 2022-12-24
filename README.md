@@ -7,6 +7,10 @@
   - GameSystem for spawn Quests UI and Quest manager
 - Change
   - Replace UI methods, for example, from: ui_ConfirmQuest.setActive(true) to: QuestConfirmUI.Instance.Show()
+  
+```C#
+    QuestConfirmUI.Instance.Show()
+```
 
 Demo level path: "Assets/StarterAssets/ThirdPersonController/Scenes/Playground"
 
