@@ -5,9 +5,14 @@
   - Level system & Getting experience for completing quests
   - Available quests count
   - GameSystem for spawn Quests UI and Quest manager
-- Change
-  - Replace UI methods, for example, from: ui_ConfirmQuest.setActive(true) to: QuestConfirmUI.Instance.Show()
-  
+
+#### Replace UI methods, for example: 
+
+from:
+```C#
+    ui_ConfirmQuest.setActive(true)
+```  
+to:
 ```C#
     QuestConfirmUI.Instance.Show()
 ```
