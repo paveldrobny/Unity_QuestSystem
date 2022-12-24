@@ -8,7 +8,7 @@
 - Fixed
   - Various minor errors
 
-### Replace UI methods, for example: 
+### Replaced UI methods, for example: 
 
 #### Before:
 ```C#
