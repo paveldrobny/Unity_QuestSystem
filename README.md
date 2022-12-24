@@ -2,7 +2,7 @@
 ### Unity version: 2022
 
 - Added
-  - Level & Getting experience for completing quests
+  - Level system & Getting experience for completing quests
   - Available quests count
   - GameSystem for spawn Quests UI and Quest manager
 - Change
