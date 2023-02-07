@@ -1,6 +1,8 @@
 # Quest System v2.1
 ### Unity version: 2022
 
+Demo level path: "Assets/StarterAssets/ThirdPersonController/Scenes/Playground"
+
 - Added (07.02.2023)
   - Achievements
 
@@ -26,8 +28,6 @@
 ```C#
     QuestConfirmUI.Instance.Show();
 ```
-
-Demo level path: "Assets/StarterAssets/ThirdPersonController/Scenes/Playground"
 
 ![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestSystem.png?raw=true)
 <br/>
