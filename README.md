@@ -1,7 +1,15 @@
 # Quest System v2.1
 ### Unity version: 2022
 
-- Added
+- Added (07.02.2023)
+  - Achievements
+
+![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestSystem4.png?raw=true)
+<br/>
+![img](https://github.com/paveldrobny/Unity_QuestSystem/blob/main/QuestSystem5.png?raw=true)
+<br/>
+
+- Added (26.12.2022)
   - Level system & Getting experience for completing quests
   - Available quests count
   - GameSystem for spawn Quests UI and Quest manager
@@ -10,11 +18,11 @@
 
 ### Replaced UI methods, for example: 
 
-#### Before:
+##### Before:
 ```C#
     ui_ConfirmQuest.setActive(true);
 ```  
-#### After:
+##### After:
 ```C#
     QuestConfirmUI.Instance.Show();
 ```

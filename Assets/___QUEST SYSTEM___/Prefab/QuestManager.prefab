@@ -48,3 +48,4 @@ MonoBehaviour:
   mainQuestTrigger: {fileID: 9120517631251280822, guid: f4875697d1157764298da2c920a34097, type: 3}
   maxLvlXP: 750
   XPModificator: 1.5
+  achivementsData: {fileID: 11400000, guid: 74b706f3897435e4e9d1d2ddd8214d00, type: 2}

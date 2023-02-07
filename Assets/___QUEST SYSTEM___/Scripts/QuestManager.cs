@@ -21,6 +21,8 @@ public class QuestManager : MonoBehaviour
     [Range(1.1f, 5.0f)]
     public float XPModificator = 1.1f;
 
+    public AchivementsData achivementsData;
+
     private void Awake()
     {
         Instance = this;
@@ -33,6 +35,12 @@ public class QuestManager : MonoBehaviour
         HideAllQuestUI();
         GetQuestsAvailable();
         UpdatePlayerData();
+
+        // Reset achivements status
+        for (int i = 0; i < achivementsData.items.Length; i++)
+        {
+            achivementsData.items[i].isUnblocked = false;
+        }
     }
 
     public void HideAllQuestUI()
